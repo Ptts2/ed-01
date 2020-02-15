@@ -205,7 +205,7 @@ public int getNumberOfAttendingElderlyPeople() {
 
 	for(int i = 0; i<this.nSeats; i++)
 	{
-		if(this.seats[i]!= null && this.seats[i].getHolder().getAge() >= Configuration.ELDERLY_PERSON_INMIN_AGE)
+		if(this.seats[i]!= null && (this.seats[i].getHolder().getAge() >= Configuration.ELDERLY_PERSON_INMIN_AGE && this.seats[i].getHolder().getAge() < Integer.MAX_VALUE))
 			elderCount++;
 	}
 	return elderCount;

@@ -26,7 +26,7 @@ public class EventArrayImpl implements Event {
 	   // utiliza los precios por defecto: DEFAULT_PRICE y DEFAULT_DISCOUNT definidos en Configuration.java
 	   this.name=name;
 	   this.eventDate=date;
-	   
+	   this.nSeats = nSeats;
 	   price=Configuration.DEFAULT_PRICE;
 	   discountAdvanceSale=Configuration.DEFAULT_DISCOUNT;
 	   
@@ -43,7 +43,7 @@ public class EventArrayImpl implements Event {
 	   // Debe crear los arrays de butacas gold y silver
 	   this.name=name;
 	   this.eventDate=date;
-	   
+	   this.nSeats = nSeats;
 	   this.price= price;
 	   this.discountAdvanceSale=discount;   
 	 
@@ -272,7 +272,7 @@ public Double getPrice(Seat seat) {
 	Double priceSeat = this.price;
 
 	if(seat.getType().name().equals("ADVANCE_SALE"))
-		priceSeat -= (priceSeat * (double)(this.discountAdvanceSale/100));
+		priceSeat -= (priceSeat * ((double)this.discountAdvanceSale/100));
 
 	return priceSeat;
 }

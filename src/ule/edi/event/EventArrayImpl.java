@@ -22,7 +22,7 @@ public class EventArrayImpl implements Event {
 		
 
    public EventArrayImpl(String name, Date date, int nSeats){
-	   //TODO 
+	   
 	   // utiliza los precios por defecto: DEFAULT_PRICE y DEFAULT_DISCOUNT definidos en Configuration.java
 	   this.name=name;
 	   this.eventDate=date;
@@ -39,7 +39,7 @@ public class EventArrayImpl implements Event {
    
    
    public EventArrayImpl(String name, Date date, int nSeats, Double price, Byte discount){
-	   //TODO 
+
 	   // Debe crear los arrays de butacas gold y silver
 	   this.name=name;
 	   this.eventDate=date;

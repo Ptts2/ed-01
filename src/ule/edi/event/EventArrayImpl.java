@@ -129,7 +129,8 @@ public int getNumberOfSeats() {
 public int getNumberOfAvailableSeats() {
 	int availableSeats = 0;
 
-	for(int i = 0; i<this.nSeats; i++){
+	for(int i = 0; i<this.nSeats; i++)
+	{
 		if(this.seats[i] == null)
 			availableSeats++;
 	}
@@ -191,9 +192,8 @@ public int getNumberOfAttendingAdults() {
 
 	for(int i = 0; i<this.nSeats; i++)
 	{
-		if(this.seats[i]!= null && this.seats[i].getHolder().getAge() >= Configuration.CHILDREN_EXMAX_AGE) {
+		if(this.seats[i]!= null && this.seats[i].getHolder().getAge() >= Configuration.CHILDREN_EXMAX_AGE) 
 			adultCount++;
-		}
 	}
 	return adultCount;
 }
@@ -249,19 +249,16 @@ public int getMaxNumberConsecutiveSeats() {
 	for(int i = 0; i<this.nSeats; i++)
 	{
 		if(consecutivos > consecutivosMax)
-		{
 			consecutivosMax = consecutivos;
-		}
 		if(this.seats[i] != null)
-		{
 			consecutivos = 0;
-		}else
-		{
+		else
 			consecutivos++;
-		}
-
 	}
-
+	
+	if(consecutivos > consecutivosMax)
+		consecutivosMax = consecutivos;
+	
 	return consecutivosMax;
 }
 
@@ -310,8 +307,13 @@ public int getPosPerson(Person p) {
 
 @Override
 public boolean isAdvanceSale(Person p) {
-
-	return this.seats[getPosPerson(p)-1].getType().name().equals("ADVANCE_SALE");
+	
+	int pos = getPosPerson(p)-1;
+	
+	if(pos<0)
+		return false;
+	else
+		return this.seats[pos].getType().name().equals("ADVANCE_SALE");
 }
    
 

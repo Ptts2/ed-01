@@ -15,23 +15,19 @@ public class EventArrayImpl implements Event {
 	private Date eventDate;
 	private int nSeats;
 	
-	private Double price;    // precio de entradas 
-	private Byte discountAdvanceSale;   // descuento en venta anticipada (0..100)
+	private Double price;    
+	private Byte discountAdvanceSale; 
    	
 	private Seat[] seats;
 		
 
    public EventArrayImpl(String name, Date date, int nSeats){
 	   
-	   // utiliza los precios por defecto: DEFAULT_PRICE y DEFAULT_DISCOUNT definidos en Configuration.java
 	   this.name=name;
 	   this.eventDate=date;
 	   this.nSeats = nSeats;
 	   price=Configuration.DEFAULT_PRICE;
 	   discountAdvanceSale=Configuration.DEFAULT_DISCOUNT;
-	   
-	   
-	   // Debe crear los arrays de butacas gold y silver
 
 	   seats=new Seat[nSeats];
 	   
@@ -40,13 +36,12 @@ public class EventArrayImpl implements Event {
    
    public EventArrayImpl(String name, Date date, int nSeats, Double price, Byte discount){
 
-	   // Debe crear los arrays de butacas gold y silver
+	   
 	   this.name=name;
 	   this.eventDate=date;
 	   this.nSeats = nSeats;
 	   this.price= price;
 	   this.discountAdvanceSale=discount;   
-	 
 	   this.seats=new Seat[nSeats];   
    }
 
@@ -98,7 +93,7 @@ public int getNumberOfNormalSaleSeats() {
 
 	for(int i = 0; i<this.nSeats; i++)
 	{
-		if(this.seats[i]!= null && this.seats[i].getType().name().equals("NORMAL"))
+		if(this.seats[i]!= null && this.seats[i].getType().equals(Type.NORMAL))
 			normalSold++;
 	}
 	return normalSold;
@@ -111,7 +106,7 @@ public int getNumberOfAdvanceSaleSeats() {
 
 	for(int i = 0; i<this.nSeats; i++)
 	{
-		if(this.seats[i]!= null && this.seats[i].getType().name().equals("ADVANCE_SALE"))
+		if(this.seats[i]!= null && this.seats[i].getType().equals(Type.ADVANCE_SALE))
 			advancedSold++;
 	}
 	return advancedSold;
@@ -234,7 +229,7 @@ public List<Integer> getAdvanceSaleSeatsList() {
 
 	for(int i = 0; i<this.nSeats; i++)
 	{
-		if(this.seats[i]!=null && this.seats[i].getType().name().equals("ADVANCE_SALE"))
+		if(this.seats[i]!=null && this.seats[i].getType().equals(Type.ADVANCE_SALE))
 			asientosAdvanceSale.add(i+1);
 	}
 	
@@ -268,7 +263,7 @@ public Double getPrice(Seat seat) {
 
 	Double priceSeat = this.price;
 
-	if(seat.getType().name().equals("ADVANCE_SALE"))
+	if(seat.getType().equals(Type.ADVANCE_SALE))
 		priceSeat -= (priceSeat * ((double)this.discountAdvanceSale/100));
 
 	return priceSeat;
@@ -313,7 +308,7 @@ public boolean isAdvanceSale(Person p) {
 	if(pos<0)
 		return false;
 	else
-		return this.seats[pos].getType().name().equals("ADVANCE_SALE");
+		return this.seats[pos].getType().equals(Type.ADVANCE_SALE);
 }
    
 

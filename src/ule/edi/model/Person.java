@@ -47,16 +47,10 @@ public class Person {
     @Override
 	public boolean equals(Object obj) {
 		
-    	if (this == obj) {
+    	if (this == obj) 
 			return true;
-		}
-		
-		if (obj instanceof Person) {
-			
-			Person other = (Person) obj;
-			
-			return (nif.equals(other.nif));
-		}
+		if (obj instanceof Person) 
+			return (this.nif.equals( ((Person) obj).nif));
 		return false;
 	}
 	

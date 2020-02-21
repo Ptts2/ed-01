@@ -23,26 +23,24 @@ public class EventArrayImpl implements Event {
 
    public EventArrayImpl(String name, Date date, int nSeats){
 	   
-	   this.name=name;
-	   this.eventDate=date;
+	   this.name = name;
+	   this.eventDate = date;
 	   this.nSeats = nSeats;
-	   price=Configuration.DEFAULT_PRICE;
-	   discountAdvanceSale=Configuration.DEFAULT_DISCOUNT;
-
-	   seats=new Seat[nSeats];
+	   this.price = Configuration.DEFAULT_PRICE;
+	   this.discountAdvanceSale = Configuration.DEFAULT_DISCOUNT;
+	   this.seats = new Seat[nSeats];
 	   
    }
    
    
    public EventArrayImpl(String name, Date date, int nSeats, Double price, Byte discount){
 
-	   
-	   this.name=name;
-	   this.eventDate=date;
+	   this.name = name;
+	   this.eventDate = date;
 	   this.nSeats = nSeats;
-	   this.price= price;
-	   this.discountAdvanceSale=discount;   
-	   this.seats=new Seat[nSeats];   
+	   this.price = price;
+	   this.discountAdvanceSale = discount;   
+	   this.seats = new Seat[nSeats];   
    }
 
 
@@ -136,7 +134,10 @@ public int getNumberOfAvailableSeats() {
 @Override
 public Seat getSeat(int pos) {
 	
-	return this.seats[pos-1];
+	if(pos>0 && pos <=this.nSeats)
+		return this.seats[pos-1];
+	else
+		return null;
 }
 
 
@@ -144,25 +145,32 @@ public Seat getSeat(int pos) {
 public Person refundSeat(int pos) {
 	
 	Person person = null;
-	if(this.seats[pos-1] != null)
+	if((pos>0 && pos <=this.nSeats) && this.seats[pos-1] != null)
 	{
 		person = this.seats[pos-1].getHolder();
 		this.seats[pos-1] = null;
 	}
 	return person;
+
 }	
 
 
 @Override
 public boolean sellSeat(int pos, Person p, boolean advanceSale) {
 
-	if(this.seats[pos-1] != null)
+	if(pos>0 && pos <=this.nSeats)
 	{
-		return false;
+		if(this.seats[pos-1] != null)
+		{
+			return false;
+		}else
+		{
+			this.seats[pos-1] = new Seat(this, pos, (advanceSale == true? Type.ADVANCE_SALE : Type.NORMAL), p);
+			return true;
+		}
 	}else
 	{
-		this.seats[pos-1] = new Seat(this, pos, (advanceSale == true? Type.ADVANCE_SALE : Type.NORMAL), p);
-		return true;
+		return false;
 	}
 }
 

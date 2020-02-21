@@ -130,6 +130,8 @@ public class EventArrayImplTests {
 		Assert.assertNull(event.getSeat(1));
 		event.sellSeat(1, new Person("1010", "AA", 10), false);
 		Assert.assertNotNull(event.getSeat(1));
+		Assert.assertNull(event.getSeat(5));
+		Assert.assertNull(event.getSeat(-5));
 	}
 	
 	@Test
@@ -137,12 +139,16 @@ public class EventArrayImplTests {
 		Assert.assertNull(e.refundSeat(1));
 		e.sellSeat(1, new Person("1010", "AA", 10), false);
 		Assert.assertNotNull(e.refundSeat(1));
+		Assert.assertNull(e.refundSeat(300));
+		Assert.assertNull(e.refundSeat(-300));
 	}
 	
 	@Test
 	public void testsellSeat() {
 		Assert.assertTrue(e.sellSeat(1, new Person("1010", "AA", 10), false));
 		Assert.assertFalse(e.sellSeat(1, new Person("1010", "AA", 10), false));
+		Assert.assertFalse(e.sellSeat(300, new Person("1010", "AA", 10), false));
+		Assert.assertFalse(e.sellSeat(-300, new Person("1010", "AA", 10), false));
 	}
 	
 	@Test
@@ -224,5 +230,18 @@ public class EventArrayImplTests {
 		Assert.assertTrue(e.isAdvanceSale(person1));
 		Assert.assertFalse(e.isAdvanceSale(person2));
 		Assert.assertFalse(e.isAdvanceSale(new Person("1013", "AC", 13)));
+	}
+	
+	@Test
+	public void testPersonEquals() {
+		Person person1 = new Person("Person", "1000", 15);
+		Person person2 = new Person("SamePerson", "1000", 16);
+		Person person3 = new Person("NotSamePerson", "1001", 15);
+		
+		Assert.assertTrue(person1.equals(person1));
+		Assert.assertTrue(person1.equals(person2));
+		Assert.assertFalse(person1.equals(person3));
+		Assert.assertFalse(person1.equals(new Object()));	
+		
 	}
 }
